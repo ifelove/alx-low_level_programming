@@ -1,71 +1,38 @@
-#include <stdio.h>
 #include "main.h"
-
 /**
- * exponent - x to the power of y
- * @x: base number
- * @y: exponent
- * Description: calcuates x^y
- * Return: x^y
- *
- **/
+ * print_number - prints a number
+ * @n: Input number
+ */
 
-int exponent(int x, int y)
+void print_number(int n)
 {
-	int power;
+	long len, res, i, temp, expo;
 
-	power = x;
-
-	if (x == 0)
-		return (0);
-	if (y == 0)
-		return (1);
-
-	while (y >= 2)
+	res = n;
+	expo = len =  1;
+/*Check negatives*/
+	if (res < 0)
 	{
-		power  = power * x;
-		y--;
-	}
-	return (power);
-}
-
-/**
- * print_number - print an int using only _putchar
- * @number: int to be printed by function
- *
- * Return: nothing
- **/
-
-void print_number(int number)
-{
-	int size, digit;
-	long counter, sign;
-
-	sign = 1;
-	digit = 0;
-	size = 1;
-	counter = number;
-
-	if (number < 0)
-	{
+		res *= -1;
 		_putchar('-');
-		sign = -1;
-		counter *= sign;
 	}
 
-	for (; counter >= 10; size++)
+/**/
+	temp = res;
+	while (temp >= 10)
 	{
-		counter = counter / 10;
+		len++;
+		temp /= 10;
 	}
 
-	counter = sign * (long)number;
-
-	while (size >= 2)
+/*Create Exponent*/
+	for (i = 1; i < len; i++)
+		expo *= 10;
+/*Main */
+	while (expo > 1)
 	{
-		digit = (counter / exponent(10, size - 1));
-		_putchar(digit + '0');
-		counter = counter % exponent(10, size - 1);
-		size--;
+		_putchar((res / expo) % 10 + '0');
+		expo /= 10;
 	}
-	_putchar(counter % 10 + '0');
+	_putchar(res % 10 + '0');
 }
