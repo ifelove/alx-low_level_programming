@@ -1,16 +1,46 @@
 #include "main.h"
 /**
- * get_endianness - checks the endianness
- *
- * Return: 0 if big endian, 1 if little endian
+ * _power - calculate (base and power)
+ * @base: base of the exponet
+ * @pow: power of the exponet
+ * Return: value of base and power
  */
-int get_endianness(void)
+unsigned long int _power(unsigned int base, unsigned int pow)
 {
-	int i;
-	char *c;
+	unsigned long int num;
+	unsigned int i;
 
-	i = 1;
-	c = (char *)&i;
+	num = 1;
+	for (i = 1; i <= pow; i++)
+		num *= base;
+	return (num);
+}
+/**
+ * print_binary - prints the binary representation of a number
+ * @n: num of prented
+ * Return: void
+ */
+void print_binary(unsigned long int n)
+{
+	unsigned long int dev, result;
+	char flag;
 
-	return (*c);
+	flag = 0;
+	dev = _power(2, sizeof(unsigned long int) * 8 - 1);
+
+	while (dev != 0)
+	{
+		result = n & dev;
+		if (result == dev)
+		{
+			flag = 1;
+			_putchar('1');
+
+		}
+		else if (flag == 1 || dev == 1)
+		{
+			_putchar('0');
+		}
+		dev >>= 1;
+	}
 }
